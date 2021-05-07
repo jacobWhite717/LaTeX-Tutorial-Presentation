@@ -69,7 +69,7 @@
 \begin{frame}{Examples}
 
     \begin{itemize}
-        \item Easiest way to get started making \LaTeX documents is to bootstrap yours from examples
+        \item Easiest way to get started making \LaTeX{} documents is to bootstrap yours from examples
         \item I'll send out an email with some of my previous work that you can pick through
     \end{itemize}
     
@@ -252,29 +252,27 @@
 
 \begin{frame}[fragile]{Referencing Objects}
 
-    \begin{itemize}
-        \item To make a referencing point, use the \textbackslash{}label\{labelName\} command (many examples coming up)
-        \item To refer back to this point, use \textbackslash{}cref\{labelName\}. 
+        To make a referencing point, use the \textbackslash{}label\{labelName\} command (many examples coming up).\\
+        
+        To refer back to this point, use \textbackslash{}cref\{labelName\}.
         \begin{itemize}
             \item Say you are referencing a figure, the result will be: `Figure 7'
         \end{itemize}
-        \item If you don't want the `Figure' part to appear, use the \textbackslash{}ref\{\} command instead
-    \end{itemize}
-    
-    
-    
-    
+        \vspace{\baselineskip}
+        
+        If you don't want the `Figure' part to appear, use the \textbackslash{}ref\{\} command instead
     
 \end{frame}
 
 \subsection{Figures}
 \begin{frame}[fragile]{Figures Packages}
 
-    The following packages are required:
+    The following packages and commands are required:
     \vspace{\baselineskip}
 
-    \begin{minted}[breaklines]{tex}
+    \begin{minted}[breaklines, fontsize=\footnotesize]{tex}
 \usepackage{graphicx} %for images
+\graphicspath{{images/}} % folder for images
 \usepackage[font={small}, justification=centering]{caption} % caption style
 \usepackage{float} %float placement
 \usepackage{subcaption} % for subfigures 
@@ -359,7 +357,7 @@
     \begin{table}[H]
         \centering
         \begin{tabular}{c|c|c}
-            Filter Order & PFE Error [dB] & LS Error [dB] \\ \hline
+            Order & PFE Error [dB] & LS Error [dB] \\ \hline
             (50/50) & 1.97972e-10 & 1.95831e-10 \\ \hline
             (100/100) & 0.00761004 & 7.18605e-09 \\ \hline
             (150/150) & 4.17774 & 8.00024e-05 \\ \hline
@@ -491,10 +489,116 @@ For proper sampling, $f_{s} > 2\cdot f_{m}$
 \end{frame}
 
 \section{Citations and Bibliography Management}
-\begin{frame}{Using Bibtex for Bibliography Management}
-    Possibly the best reason to start using Latex! Bibtex streamlines citations and bibliography's in your work.
+\subsection{Bibtex Files}
+\begin{frame}[fragile]{Using Bibtex for Bibliography Management}
+    Possibly the best reason to start using Latex! Bibtex streamlines citations and bibliography's in your work.\\
+    
+    To make use of it, we need the following package:
+    \vspace{\baselineskip}
+    
+    \begin{minted}{tex}
+\usepackage[bibstyle=ieee]{biblatex}
+    \end{minted}
+    \vspace{\baselineskip}
+    
+    There are lots of different citation styles that can be used (IEEE, MLA, APA, ...)
+    
+\end{frame}
+
+\begin{frame}{Bib Files - Where to get them?}
+
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.8]{images/google_scholar.png}
+        \caption{You can get the .bib files directly from google scholar}
+        \label{fig:bib_google}
+    \end{figure}
+    
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.5]{images/mun_lib.png}
+        \caption{You can also get them from the MUN online libraries}
+        \label{fig:bib_mun}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}[fragile]{Bib File Format}
+    
+    \begin{minted}[fontsize=\scriptsize, breaklines]{tex}
+@article{lotte_review_2018,
+	title = {A review of classification algorithms for {EEG}-based brain–computer interfaces: a 10 year update},
+	volume = {15},
+	issn = {1741-2560, 1741-2552},
+	shorttitle = {A review of classification algorithms for {EEG}-based brain–computer interfaces},
+	...
+}
+    \end{minted}
+    
+\end{frame}
+
+\begin{frame}[fragile]{Bib Files}
+
+    When you gather all of the bibtex files that you need, add them all together to a file that you specify:
+    \vspace{\baselineskip}
+    
+    \begin{minted}{tex}
+\addbibresource{bibliography.bib}
+    \end{minted}
+    
+\end{frame}
+
+\subsection{Citations and Bibliographies}
+\begin{frame}[fragile]{Including Citations}
+
+    Once your bibtex references are gathered and set up, citing others is easy:
+    \vspace{\baselineskip}
+
+    \begin{minted}{tex}
+\cite{reference_tag}
+    \end{minted}
+    \vspace{\baselineskip}
+    
+    Despite advances in parallel computing technology, the most common approach to convert filters to a parallel form has some inherent issues \cite{BankBalazs2018CIIR}. 
+        
+\end{frame}
+
+\begin{frame}[fragile]{Adding your Bibliography}
+    
+    Adding in the bibliography is just as easy:
+    \vspace{\baselineskip}
+    
+    \begin{minted}{tex}
+\printbibliography
+    \end{minted}
+    \vspace{\baselineskip}
+    
+    Everything that you reference using the \textbackslash{}cite\{\} command will be added to the bibliography, formatted as per the settings at the package inclusion.
+    
+\end{frame}
+
+\begin{frame}{The Bibliography}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{images/bibliography.png}
+    \end{figure}
+    
 \end{frame}
 
 \section{Final Notes}
+\begin{frame}{Final Notes}
+    With all of the examples that I'll send out, there will also be a long-form latex tutorial pdf\\
+    
+    Don't forget the golden rule: the internet has (nearly) all of the answers out there already!\\
+    
+    Overleaf has lots of pre-made templates that can be useful, here's one for a MUN thesis:
+    \url{https://www.overleaf.com/gallery/tagged/mun}
+    
+\end{frame}
+
+\begin{frame}{}
+    Thanks for your time!
+\end{frame}
 
 \end{document}
