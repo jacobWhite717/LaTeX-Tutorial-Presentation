@@ -16,9 +16,9 @@
     \titlepage
 \end{frame}
 
-\begin{frame}{Table of Contents}
-    \tableofcontents
-\end{frame}
+% \begin{frame}{Table of Contents}
+%     \tableofcontents
+% \end{frame}
 
 \section{Starting Notes}
 
@@ -218,10 +218,10 @@
     
     There's nothing too complicated when it comes to writing actual words down in latex, you just have to have them placed in the correct \textbackslash{}section\{\} of the document.\\
     
-    There are some restricted characters that can't be typed on their own such as \_ \% \& \textbackslash{} \{ \}, and need to be typed like so,\\
+    There are some restricted characters that can't be typed on their own such as \_ \% \& \textbackslash{} \{ \} \$, and need to be typed like so,\\
     
     \begin{minted}{tex}
-\_ \% \& \textbackslash \{ \}
+\_ \% \& \textbackslash \{ \} \$
     \end{minted}
     
 \end{frame}
@@ -233,6 +233,37 @@
     To end a paragraph, use \textbackslash{}par \\
     
     To add a space between lines or paragraphs, you have to and a black new-line after the \textbackslash\textbackslash
+    
+\end{frame}
+
+\begin{frame}[fragile]{Referencing Objects}
+
+    Oftentimes, you'll want to refer to figures or tables within your document. This is easily done in latex as it automatically orders and numbers these objects for you.\\
+    
+    There are a few packages that improve the default object referencing that I recommend:
+    \vspace{\baselineskip}
+    
+    \begin{minted}[fontsize=\footnotesize, breaklines]{tex}
+\usepackage[hidelinks, breaklinks]{hyperref}
+\usepackage[capitalise, nameinlink, noabbrev, english]{cleveref}
+    \end{minted}
+    
+\end{frame}
+
+\begin{frame}[fragile]{Referencing Objects}
+
+    \begin{itemize}
+        \item To make a referencing point, use the \textbackslash{}label\{labelName\} command (many examples coming up)
+        \item To refer back to this point, use \textbackslash{}cref\{labelName\}. 
+        \begin{itemize}
+            \item Say you are referencing a figure, the result will be: `Figure 7'
+        \end{itemize}
+        \item If you don't want the `Figure' part to appear, use the \textbackslash{}ref\{\} command instead
+    \end{itemize}
+    
+    
+    
+    
     
 \end{frame}
 
@@ -269,7 +300,7 @@
     To make the figure in the previous slide, the below was used:
     \vspace{\baselineskip}
     
-    \begin{minted}{tex}
+    \begin{minted}[fontsize=\small]{tex}
 \begin{figure}[htbH]
     \centering
     \includegraphics[scale=0.1]{images/example_image.JPG}
@@ -302,7 +333,7 @@
 
 \begin{frame}[fragile]{Sub-Figures structure}
     
-    \begin{minted}[breaklines]{tex}
+    \begin{minted}[breaklines, fontsize=\small]{tex}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[c]{0.29\textwidth}
@@ -323,6 +354,8 @@
 \subsection{Tables}
 \begin{frame}{Tables}
     
+    Latex can format your tables, like the example seen in \cref{tab:table_eg}
+    
     \begin{table}[H]
         \centering
         \begin{tabular}{c|c|c}
@@ -337,6 +370,129 @@
         \label{tab:table_eg}
     \end{table}
     
+\end{frame}
+
+\begin{frame}[fragile]{Table Structure}
+
+    \begin{minted}[breaklines, fontsize=\small]{tex}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c}
+        Order & PFE Error [dB] & LS Error [dB] \\ \hline
+        (50/50) & 1.97972e-10 & 1.95831e-10 \\ \hline
+        (100/100) & 0.00761004 & 7.18605e-09 \\ \hline
+        (150/150) & 4.17774 & 8.00024e-05 \\ \hline
+        (200/200) & 4.85818 & 9.27059e-09 \\ \hline
+        (1000/1000) & 4.44133 & 1.00683e-07 \\ \hline
+    \end{tabular}
+    \caption{The mean absolute dB error for the \textbf{room response} for various filter orders.}
+    \label{tab:table_eg}
+\end{table}
+    \end{minted}
+    
+\end{frame}
+
+\subsection{Math}
+\begin{frame}[fragile]{Math Packages}
+    Two incredibly useful packages for math formatting in LaTeX:
+    \vspace{\baselineskip}
+    
+    \begin{minted}{tex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+    \end{minted}
+    
+\end{frame}
+
+\begin{frame}[fragile]{Ways to write math}
+    Math can be written inline and in block environments: \\
+    
+    For \textbf{inline}, surround the math in \$: \\
+    
+    \begin{minted}[fontsize=\small]{tex}
+Radial frequency is, $\Omega = 2\pi f$
+For proper sampling, $f_{s} > 2\cdot f_{m}$
+    \end{minted}
+    \vspace{\baselineskip}
+    
+    Radial frequency is, $\Omega = 2\pi f$ \\
+    For proper sampling, $f_{s} > 2\cdot f_{m}$ \\
+    
+\end{frame}
+
+\begin{frame}[fragile]{The Math Environment}
+    
+    For standalone equations use the \textit{equation} environment, like in \cref{eqn:eg_equation}:
+    
+    \begin{equation}
+        H(z^{-1}) = \sum_{l=1}^{L} \frac{ b_{0,l} + b_{1,l}z^{-1} }{ 1 + a_{1,l}z^{-1} + a_{2,l}z^{-2} } + \sum_{k=0}^{K}f_{k}z^{-k}
+        \label{eqn:eg_equation}
+    \end{equation}
+    
+    \begin{minted}[breaklines, fontsize=\small]{tex}
+\begin{equation}
+    H(z^{-1}) = \sum_{l=1}^{L} \frac{b_{0,l} + b_{1,l}z^{-1}}{1 + a_{1,l}z^{-1} + a_{2,l}z^{-2}} + \sum_{k=0}^{K}f_{k}z^{-k}
+    \label{eqn:no_del_par}
+\end{equation}
+    \end{minted}
+    
+\end{frame}
+
+\begin{frame}[fragile]{Multi-Line Equations}
+
+    Equations can be broken into multiple lines, like in \cref{eqn:eg_split}:
+    
+    \begin{equation}
+        \begin{split}
+            y + 2x & = 7x + 5 \\
+            y & = 5x + 5 \\
+            y & = 5(x+1)
+        \end{split}
+        \label{eqn:eg_split}
+    \end{equation}
+    
+    \begin{minted}[fontsize=\small, baselinestretch=1]{tex}
+\begin{equation}
+    \begin{split}
+        y + 2x & = 7x + 5 \\
+        y & = 5x + 5 \\
+        y & = 5(x+1)
+    \end{split}
+    \label{eqn:eg_split}
+\end{equation}
+    \end{minted}
+    
+\end{frame}
+
+\begin{frame}{Notes about math usages}
+    
+    \begin{itemize}
+        \item The math environments are what you can use for subscripts and superscripts in text, eg. May $7^{th}, 2021$
+        \item You can only use the Greek characters within math environments, eg. $\alpha, \beta, ..., \omega$
+    \end{itemize}
+    
+\end{frame}
+
+\subsection{Other Environments}
+\begin{frame}{Lists}
+
+    \begin{itemize}
+        \item For unnumbered lists (like this), use the \textit{listing} environment
+        \item (Unnumbered list item)
+    \end{itemize}
+    
+    \vspace{\baselineskip}
+
+    \begin{enumerate}
+        \item For numbered lists (like \textit{this}), use the \textit{enumerate} environment
+        \item (Numbered list item)
+    \end{enumerate}
+
+\end{frame}
+
+\section{Citations and Bibliography Management}
+\begin{frame}{Using Bibtex for Bibliography Management}
+    Possibly the best reason to start using Latex! Bibtex streamlines citations and bibliography's in your work.
 \end{frame}
 
 \section{Final Notes}
